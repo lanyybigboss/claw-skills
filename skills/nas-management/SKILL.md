@@ -236,18 +236,43 @@ tar xzf /tmp/nas-skills.tar.gz -C /tmp/claw-skills/skills/
 ## SSH连接问题诊断
 ### 测试结果
 ✅ SSH服务正常运行于 feifeiniu123.fnos.net 端口22
+✅ SSH协议版本: OpenSSH_8.2p1 Ubuntu-4ubuntu0.13
 ✅ SSH协议版本: OpenSSH_8.9p1 Ubuntu-3ubuntu0.14
 ✅ 认证方法支持: publickey,password
-❌ 密码认证被禁用
+✅ SSH协议协商成功
+❌ 密码认证失败: Permission denied
 ❌ 端口222拒绝连接
 ❌ 公钥认证失败: 无匹配密钥
 
+### SSH调试信息
+```bash
+debug1: Authentications that can continue: publickey,password
+debug3: send packet: type 50
+debug2: we sent a password packet, wait for reply
+debug3: receive packet: type 51
+debug1: Authentications that can continue: publickey,password
+Permission denied, please try again.
+```
+
+### SSH服务器版本变化
+防火墙关闭后，SSH服务器版本发生了变化：
+- 之前版本: OpenSSH_8.9p1 Ubuntu-3ubuntu0.14
+- 现在版本: OpenSSH_8.2p1 Ubuntu-4ubuntu0.13
+
+这可能意味着我们连接到了不同的SSH服务实例
+
+### 故障原因
+SSH密码认证失败原因：
+1. 密码不正确
+2. SSH配置禁用密码认证
+3. 用户权限问题
+4. SSH安全策略
+
 ### 解决方案
-**需要先通过Web界面配置**：
-1. 访问飞牛NAS Web界面
-2. 创建自定义账户
-3. 启用SSH服务
-4. 添加SSH公钥
+**在NAS上修改SSH配置**：
+1. 启用密码认证
+2. 修改SSH端口
+3. 重启SSH服务
 
 **推荐使用SSH密钥登录**：
 1. 生成SSH密钥
