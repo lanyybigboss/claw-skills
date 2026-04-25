@@ -238,9 +238,16 @@ tar xzf /tmp/nas-skills.tar.gz -C /tmp/claw-skills/skills/
 ✅ SSH服务正常运行于 feifeiniu123.fnos.net 端口22
 ✅ SSH协议版本: OpenSSH_8.9p1 Ubuntu-3ubuntu0.14
 ✅ 认证方法支持: publickey,password
-❌ 密码认证失败: Permission denied
+❌ 密码认证被禁用
 ❌ 端口222拒绝连接
 ❌ 公钥认证失败: 无匹配密钥
+
+### 解决方案
+**推荐使用SSH密钥登录**：
+1. 生成SSH密钥
+2. 配置NAS公钥认证
+3. 禁用密码认证
+4. 测试密钥连接
 
 ### 故障原因
 SSH服务器**禁用了密码认证**以避免中间人攻击
@@ -248,6 +255,8 @@ SSH服务器**禁用了密码认证**以避免中间人攻击
 Password authentication is disabled to avoid man-in-the-middle attacks.
 KeyboardInteractiveAuthentication is disabled to avoid man-in-the-middle attacks.
 ```
+
+SSH密钥登录更安全、更方便，适合NAS远程管理。
 
 ### 解决方案
 #### 1. 修改SSH配置（在NAS上）
@@ -282,18 +291,61 @@ sudo cat /etc/ssh/sshd_config | grep KeyboardInteractiveAuthentication
 sshpass -p "claw114514" ssh claw@feifeiniu123.fnos.net "echo SSH连接成功!"
 ```
 
-### SSH密钥备用方案
-#### 如果无法启用密码认证，使用SSH密钥
+### SSH密钥认证方案
+#### SSH密钥登录比密码认证更安全
 ```bash
 # 生成SSH密钥
 ssh-keygen -t ed25519 -C "claw@NAS"
 
+# 查看公钥
+cat ~/.ssh/id_ed25519.pub
+
 # 配置公钥
-cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+echo "你的公钥内容" >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
 
 # 重启SSH服务
 sudo systemctl restart ssh
+```
+
+#### NAS上的配置步骤
+```bash
+# 启用公钥认证
+sudo sed -i 's/PubkeyAuthentication no/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+sudo sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+
+# 禁用密码认证
+sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+
+# 重启SSH服务
+sudo systemctl restart ssh
+```
+
+### SSH密钥连接测试
+```bash
+# 清理主机记录
+ssh-keygen -f '/root/.ssh/known_hosts' -R 'feifeiniu123.fnos.net'
+
+# 测试SSH密钥连接
+ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no claw@feifeiniu123.fnos.net "echo SSH密钥连接成功!"
+
+# 测试SFTP连接
+sftp claw@feifeiniu123.fnos.net
+```
+
+### SSH公钥内容
+```bash
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHKVHPXdzgK4KJA/Ki/47O9cm8Xthj/BZEmfE9XfXdR claw@NAS
+```
+
+### NAS公钥配置
+```bash
+# 在NAS上添加公钥
+mkdir -p ~/.ssh
+echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHKVHPXdzgK4KJA/Ki/47O9cm8Xthj/BZEmfE9XfXdR claw@NAS" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
 ```
 
 ### 端口222配置
