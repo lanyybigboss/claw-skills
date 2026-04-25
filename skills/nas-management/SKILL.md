@@ -121,7 +121,7 @@ sshpass -p 'claw114514' sftp claw@feifeiniu123.fnos.net
 
 ## Connection Test Script
 ```bash
-sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no claw@feifeiniu123.fnos.net "echo SSH连接成功!"
+sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no -p 222 claw@feifeiniu123.fnos.net "echo SSH连接成功!"
 sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no claw@fast.lanyybigboss.fun "echo SSH连接成功!"
 sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no claw@2408:825c:2022:2942:2e0:70ff:fea6:8173 "echo SSH连接成功!"
 ```
@@ -239,6 +239,7 @@ tar xzf /tmp/nas-skills.tar.gz -C /tmp/claw-skills/skills/
 ✅ SSH协议版本: OpenSSH_8.9p1 Ubuntu-3ubuntu0.14
 ✅ 认证方法支持: publickey,password
 ❌ 密码认证失败: Permission denied
+❌ 端口222拒绝连接
 ❌ 公钥认证失败: 无匹配密钥
 
 ### 故障原因
@@ -295,14 +296,47 @@ chmod 600 ~/.ssh/authorized_keys
 sudo systemctl restart ssh
 ```
 
+### 端口222配置
+SSH端口已改为222，需要在NAS上:
+```bash
+# 修改SSH端口
+sudo sed -i 's/#Port 22/Port 222/' /etc/ssh/sshd_config
+sudo sed -i 's/Port 22/Port 222/' /etc/ssh/sshd_config
+
+# 重启SSH服务
+sudo systemctl restart ssh
+
+# 检查防火墙
+sudo iptables -L
+sudo ufw status
+```
+
 ### 飞牛NAS SSH配置
 根据飞牛NAS文档：
-- SSH端口: 22
+- SSH端口: 22（原端口）
+- SSH端口: 222（你修改的端口）
 - 默认账户密码: Custom（自定义）
 - SSH配置可通过系统设置启用
 
 ## 飞牛NAS技能配置建议
 1. 在NAS上启用SSH密码认证
-2. 在NAS上重启SSH服务
-3. 测试SSH连接
-4. 如果不行，配置SSH密钥
+```bash
+sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+```
+
+2. 在NAS上修改SSH端口
+```bash
+sudo sed -i 's/#Port 22/Port 222/' /etc/ssh/sshd_config
+```
+
+3. 在NAS上重启SSH服务
+```bash
+sudo systemctl restart ssh
+```
+
+4. 测试SSH连接
+```bash
+sshpass -p "claw114514" ssh -p 222 claw@feifeiniu123.fnos.net "echo SSH连接成功!"
+```
+
+5. 如果不行，配置SSH密钥
