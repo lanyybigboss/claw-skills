@@ -241,36 +241,68 @@ tar xzf /tmp/nas-skills.tar.gz -C /tmp/claw-skills/skills/
 ❌ 密码认证失败: Permission denied
 ❌ 公钥认证失败: 无匹配密钥
 
-### 故障分析
-1. SSH服务器禁用了密码认证以避免中间人攻击
-2. SSH主机密钥已更改，导致密码认证被禁用
-3. 需要清理known_hosts文件: ssh-keygen -R feifeiniu123.fnos.net
-4. 可能需要公钥认证
-5. 密码可能需要验证
+### 故障原因
+SSH服务器**禁用了密码认证**以避免中间人攻击
+```bash
+Password authentication is disabled to avoid man-in-the-middle attacks.
+KeyboardInteractiveAuthentication is disabled to avoid man-in-the-middle attacks.
+```
 
 ### 解决方案
-1. 清理known_hosts
+#### 1. 修改SSH配置（在NAS上）
 ```bash
-ssh-keygen -f '/root/.ssh/known_hosts' -R 'feifeiniu123.fnos.net'
+# 启用密码认证
+sudo vi /etc/ssh/sshd_config
+
+# 修改以下配置：
+PasswordAuthentication no -> PasswordAuthentication yes
+KeyboardInteractiveAuthentication no -> KeyboardInteractiveAuthentication yes
+
+# 重启SSH服务
+sudo systemctl restart ssh
+sudo systemctl restart sshd
 ```
 
-2. 检查密码是否正确
+#### 2. 快速修改（在NAS上）
 ```bash
-sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no claw@feifeiniu123.fnos.net
+sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
+sudo sed -i 's/KeyboardInteractiveAuthentication no/KeyboardInteractiveAuthentication yes/' /etc/ssh/sshd_config
+sudo systemctl restart ssh
 ```
 
-3. 检查SSH配置
+#### 3. 检查当前配置
 ```bash
-sshpass -p "claw114514" ssh claw@feifeiniu123.fnos.net "sudo cat /etc/ssh/sshd_config"
+sudo cat /etc/ssh/sshd_config | grep PasswordAuthentication
+sudo cat /etc/ssh/sshd_config | grep KeyboardInteractiveAuthentication
 ```
 
-4. 检查SFTP服务
+#### 4. 验证连接
 ```bash
-sshpass -p "claw114514" sftp claw@feifeiniu123.fnos.net
+sshpass -p "claw114514" ssh claw@feifeiniu123.fnos.net "echo SSH连接成功!"
 ```
+
+### SSH密钥备用方案
+#### 如果无法启用密码认证，使用SSH密钥
+```bash
+# 生成SSH密钥
+ssh-keygen -t ed25519 -C "claw@NAS"
+
+# 配置公钥
+cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+
+# 重启SSH服务
+sudo systemctl restart ssh
+```
+
+### 飞牛NAS SSH配置
+根据飞牛NAS文档：
+- SSH端口: 22
+- 默认账户密码: Custom（自定义）
+- SSH配置可通过系统设置启用
 
 ## 飞牛NAS技能配置建议
-1. 确认SSH密码是否正确
-2. 确认SSH配置是否正确
-3. 确认是否需要SSH密钥
-4. 确认SFTP是否可用
+1. 在NAS上启用SSH密码认证
+2. 在NAS上重启SSH服务
+3. 测试SSH连接
+4. 如果不行，配置SSH密钥
