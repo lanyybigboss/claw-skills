@@ -1,0 +1,25 @@
+{
+    "repositories": [
+        {
+            "name": "ophub/fnnas",
+            "description": "Supports running FnNAS on Amlogic, Allwinner, and Rockchip devices",
+            "html_url": "https://github.com/ophub/fnnas",
+            "type": "main"
+        },
+        {
+            "name": "FNOSP/fnnas-api",
+            "description": "飞牛NAS网页API",
+            "html_url": "https://github.com/FNOSP/fnnas-api",
+            "type": "api"
+        },
+        {
+            "name": "ckcoding/fnnas-docs",
+            "description": "飞牛应用开放平台开发文档",
+            "html_url": "https://github.com/ckcoding/fnnas-docs",
+            "type": "docs"
+        }
+    ],
+    "official_docs": "https://developer.fnnas.com/docs/guide",
+    "last_updated": "Sat Apr 25 08:39:52 PM CST 2026",
+    "notes": "FnNAS (飞牛NAS) is a NAS solution running on ARM devices"
+}

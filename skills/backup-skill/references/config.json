@@ -1,0 +1,54 @@
+{
+    "backup_methods": {
+        "archive": true,
+        "github": false,
+        "webhook": false,
+        "encrypt": true,
+        "email": false,
+        "cloud_storage": false
+    },
+    "backup_settings": {
+        "archive_path": "~/.openclaw/workspace/skills/backup-skill/cache/openclaw-backup.tar.gz",
+        "encrypted_path": "~/.openclaw/workspace/skills/backup-skill/cache/openclaw-backup.tar.gz.enc",
+        "exclude_patterns": ["*.tmp", "*.log", "cache/*.tmp"],
+        "include_files": [
+            "~/.openclaw/workspace/skills/*",
+            "~/.openclaw/workspace/MEMORY.md",
+            "~/.openclaw/workspace/HEARTBEAT.emd",
+            "~/.openclaw/workspace/SOUL.md",
+            "~/.openclaw/workspace/USER.md",
+            "~/.openclaw/workspace/TOOLS.md",
+            "~/.openclaw/workspace/AGENTS.md",
+            "~/.openclaw/workspace/IDENTITY.md",
+            "~/.openclaw/workspace/memory/*",
+            "~/.openclaw/.openclaw/*"
+        ],
+        "backup_schedule": "daily",
+        "retention_days": 7,
+        "max_archive_count": 5
+    },
+    "github_settings": {
+        "github_url": "",
+        "github_token": "",
+        "repository": "openclaw-backup",
+        "branch": "main",
+        "auto_push": false
+    },
+    "webhook_settings": {
+        "webhook_url": "",
+        "webhook_secret": "",
+        "auto_upload": false
+    },
+    "cloud_storage": {
+        "provider": "",
+        "access_key": "",
+        "secret_key": "",
+        "bucket": "",
+        "region": ""
+    },
+    "encryption_settings": {
+        "algorithm": "aes-256-cbc",
+        "password": "",
+        "auto_encrypt": true
+    }
+}

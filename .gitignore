@@ -1,0 +1,7 @@
+# Ignore workspace-specific files
+workspace/
+.local/
+.env
+secrets/
+*.log
+*.tmp
