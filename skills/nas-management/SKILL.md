@@ -243,6 +243,12 @@ tar xzf /tmp/nas-skills.tar.gz -C /tmp/claw-skills/skills/
 ❌ 公钥认证失败: 无匹配密钥
 
 ### 解决方案
+**需要先通过Web界面配置**：
+1. 访问飞牛NAS Web界面
+2. 创建自定义账户
+3. 启用SSH服务
+4. 添加SSH公钥
+
 **推荐使用SSH密钥登录**：
 1. 生成SSH密钥
 2. 配置NAS公钥认证
@@ -256,7 +262,7 @@ Password authentication is disabled to avoid man-in-the-middle attacks.
 KeyboardInteractiveAuthentication is disabled to avoid man-in-the-middle attacks.
 ```
 
-SSH密钥登录更安全、更方便，适合NAS远程管理。
+飞牛NAS需要先通过Web界面创建账户并启用SSH服务。
 
 ### 解决方案
 #### 1. 修改SSH配置（在NAS上）
@@ -365,10 +371,31 @@ sudo ufw status
 
 ### 飞牛NAS SSH配置
 根据飞牛NAS文档：
+
+#### Web界面配置流程
+1. **访问Web界面**: http://192.168.1.15:5666
+2. **创建自定义账户**: 输入用户名和密码
+3. **启用SSH**: 在系统设置中启用SSH服务
+4. **SSH连接**: 使用SSH客户端连接终端
+
+#### SSH配置
 - SSH端口: 22（原端口）
 - SSH端口: 222（你修改的端口）
 - 默认账户密码: Custom（自定义）
 - SSH配置可通过系统设置启用
+
+#### 公钥配置
+```bash
+# 在NAS上创建SSH目录
+mkdir -p ~/.ssh
+
+# 添加公钥
+echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHKVHPXdzgK4KJA/Ki/47O9cm8Xthj/BZEmfE9XfXdR claw@NAS" >> ~/.ssh/authorized_keys
+
+# 设置权限
+chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+```
 
 ## 飞牛NAS技能配置建议
 1. 在NAS上启用SSH密码认证
