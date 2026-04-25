@@ -121,6 +121,7 @@ sshpass -p 'claw114514' sftp claw@feifeiniu123.fnos.net
 
 ## Connection Test Script
 ```bash
+sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no claw@feifeiniu123.fnos.net "echo SSH连接成功!"
 sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no claw@fast.lanyybigboss.fun "echo SSH连接成功!"
 sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no claw@2408:825c:2022:2942:2e0:70ff:fea6:8173 "echo SSH连接成功!"
 ```
@@ -163,16 +164,18 @@ echo "本地备份位置: $BACKUP_DIR"
 ### Network Issues
 ```bash
 # DNS resolution
-nslookup fast.lanyybigboss.fun
+nslookup feifeiniu123.fnos.net
 
 # Ping test
+ping -c 2 feifeiniu123.fnos.net
 ping -c 2 fast.lanyybigboss.fun
 ping -c 2 182.89.87.22
 
 # SSH connection test
-sshpass -p "claw114514" ssh -v claw@fast.lanyybigboss.fun
+sshpass -p "claw114514" ssh -v claw@feifeiniu123.fnos.net
 
 # Port test
+nc -zv feifeiniu123.fnos.net 22
 nc -zv fast.lanyybigboss.fun 22
 nc -zv 182.89.87.22 22
 ```
@@ -180,13 +183,13 @@ nc -zv 182.89.87.22 22
 ### SSH Issues
 ```bash
 # SSH verbose mode for debugging
-sshpass -p "claw114514" ssh -vvv claw@fast.lanyybigboss.fun
+sshpass -p "claw114514" ssh -vvv claw@feifeiniu123.fnos.net
 
 # Check SSH service
-sshpass -p "claw114514" ssh claw@fast.lanyybigboss.fun "systemctl status ssh"
+sshpass -p "claw114514" ssh claw@feifeiniu123.fnos.net "systemctl status ssh"
 
 # Check firewall
-sshpass -p "claw114514" ssh claw@fast.lanyybigboss.fun "iptables -L"
+sshpass -p "claw114514" ssh claw@feifeiniu123.fnos.net "iptables -L"
 ```
 
 ### Alternative Connection Methods
@@ -198,7 +201,7 @@ sshpass -p "claw114514" ssh claw@182.89.87.22
 sshpass -p "claw114514" ssh claw@2408:825c:2022:2942:2e0:70ff:fea6:8173
 
 # With timeout
-sshpass -p "claw114514" ssh -o ConnectTimeout=10 claw@fast.lanyybigboss.fun
+sshpass -p "claw114514" ssh -o ConnectTimeout=10 claw@feifeiniu123.fnos.net
 ```
 
 ## Integration with GitHub Skills Repository
@@ -229,3 +232,45 @@ tar xzf /tmp/nas-skills.tar.gz -C /tmp/claw-skills/skills/
 - IPv4 address: 182.89.87.22
 - User: claw, Password: claw114514
 - Connection may need network configuration adjustments
+
+## SSH连接问题诊断
+### 测试结果
+✅ SSH服务正常运行于 feifeiniu123.fnos.net 端口22
+✅ SSH协议版本: OpenSSH_8.9p1 Ubuntu-3ubuntu0.14
+✅ 认证方法支持: publickey,password
+❌ 密码认证失败: Permission denied
+❌ 公钥认证失败: 无匹配密钥
+
+### 故障分析
+1. SSH服务器禁用了密码认证以避免中间人攻击
+2. SSH主机密钥已更改，导致密码认证被禁用
+3. 需要清理known_hosts文件: ssh-keygen -R feifeiniu123.fnos.net
+4. 可能需要公钥认证
+5. 密码可能需要验证
+
+### 解决方案
+1. 清理known_hosts
+```bash
+ssh-keygen -f '/root/.ssh/known_hosts' -R 'feifeiniu123.fnos.net'
+```
+
+2. 检查密码是否正确
+```bash
+sshpass -p "claw114514" ssh -o StrictHostKeyChecking=no claw@feifeiniu123.fnos.net
+```
+
+3. 检查SSH配置
+```bash
+sshpass -p "claw114514" ssh claw@feifeiniu123.fnos.net "sudo cat /etc/ssh/sshd_config"
+```
+
+4. 检查SFTP服务
+```bash
+sshpass -p "claw114514" sftp claw@feifeiniu123.fnos.net
+```
+
+## 飞牛NAS技能配置建议
+1. 确认SSH密码是否正确
+2. 确认SSH配置是否正确
+3. 确认是否需要SSH密钥
+4. 确认SFTP是否可用
