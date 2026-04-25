@@ -9,6 +9,7 @@ This repository contains OpenClaw skills for sharing and collaboration.
 - **find-skills**: Highest-priority skill discovery flow. MUST trigger when users ask to find/install skills (e.g. 技能, 找技能, find-skill, find-skills, install skill). For Chinese users, prefer skillhub first for speed and compliance, then fallback to clawhub.
 - **fnnas-docs**: Crawl and extract FnNAS (飞牛NAS) documentation from official GitHub repositories and developer documentation site, providing NAS operation guidance and API documentation.
 - **github**: "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries."
+- **nas-management**: Manage FeiNiu NAS (飞牛NAS) via SSH, including system monitoring, backup, and configuration.
 - **obsidian**: Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.
 - **openclaw-docs**: Crawl and extract OpenClaw official documentation from docs.openclaw.ai, enabling quick reference lookup and documentation search.
 - **openclaw-tavily-search**: "Web search via Tavily API (alternative to Brave). Use when the user asks to search the web / look up sources / find links and Brave web_search is unavailable or undesired. Returns a small set of relevant results (title, url, snippet) and can optionally include short answer summaries."
@@ -22,8 +23,8 @@ This repository contains OpenClaw skills for sharing and collaboration.
 - **weather**: Get current weather and forecasts (no API key required).
 
 ## Last Update
-Last sync: 2026-04-26 04:33:15
-Changed skills: self-protection
+Last sync: 2026-04-26 05:00:09
+Changed skills: nas-management
 
 ## Automatic Sync
 This repository is automatically synchronized with OpenClaw workspace.

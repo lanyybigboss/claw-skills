@@ -74,12 +74,50 @@ sshpass -p "claw114514" ssh claw@fast.lanyybigboss.fun "ping -c 2 google.com"
 ```
 
 ## NAS Address Information
-- Domain: fast.lanyybigboss.fun
+- FeiNiu Relay Address: feifeiniu123.fnos.net
+- Custom Domain: fast.lanyybigboss.fun
 - IPv4: 182.89.87.22
-- IPv6: 2408:825c:2022:2942:2e0:70ff:fea6:8173
+- IPv6: 2408:825c:2022:2942::25e
 - SSH Port: 22
 - User: claw
 - Password: claw114514
+
+## Connection Testing Results
+✅ SSH服务响应: feifeiniu123.fnos.net
+❌ 密码认证失败: Permission denied
+❌ 公钥认证失败: 没有匹配的密钥
+❌ 网络不通: fast.lanyybigboss.fun
+
+## Troubleshooting Steps
+### 1. 验证用户名和密码
+```bash
+# 测试连接
+sshpass -p 'claw114514' ssh claw@feifeiniu123.fnos.net
+
+# 调试连接
+sshpass -p 'claw114514' ssh -v claw@feifeiniu123.fnos.net
+```
+
+### 2. 检查SSH配置
+```bash
+# 查看认证方法
+sshpass -p 'claw114514' ssh -v claw@feifeiniu123.fnos.net | grep "Authentications"
+
+# 检查是否允许密码登录
+sshpass -p 'claw114514' ssh claw@feifeiniu123.fnos.net "sudo cat /etc/ssh/sshd_config | grep PasswordAuthentication"
+```
+
+### 3. 检查SFTP服务
+```bash
+# SFTP连接测试
+sshpass -p 'claw114514' sftp claw@feifeiniu123.fnos.net
+```
+
+### 4. 可能的解决方案
+1. 密码可能需要更新
+2. SSH可能需要特殊配置
+3. SFTP可能有不同的认证方式
+4. 可能需要密钥认证
 
 ## Connection Test Script
 ```bash
