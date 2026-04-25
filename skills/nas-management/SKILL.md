@@ -254,6 +254,23 @@ debug1: Authentications that can continue: publickey,password
 Permission denied, please try again.
 ```
 
+### SFTP调试信息
+```bash
+Password authentication is disabled to avoid man-in-the-middle attacks.
+Keyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.
+UpdateHostkeys is disabled because the host key is not trusted.
+```
+
+### 密码测试结果
+```bash
+# 测试密码: claw114514 → Permission denied
+# 测试密码: claw → Permission denied
+# 测试密码: 123456 → Permission denied
+# 测试密码: password → Permission denied
+# 测试密码: admin → Permission denied
+# 测试密码: root → Permission denied
+```
+
 ### SSH服务器版本变化
 防火墙关闭后，SSH服务器版本发生了变化：
 - 之前版本: OpenSSH_8.9p1 Ubuntu-3ubuntu0.14
@@ -263,10 +280,27 @@ Permission denied, please try again.
 
 ### 故障原因
 SSH密码认证失败原因：
-1. 密码不正确
-2. SSH配置禁用密码认证
-3. 用户权限问题
-4. SSH安全策略
+```bash
+Password authentication is disabled to avoid man-in-the-middle attacks.
+Keyboard-interactive authentication is disabled to avoid man-in-the-middle attacks.
+```
+
+SSH服务器**禁用了密码认证**以避免中间人攻击
+主要原因：
+1. SSH主机密钥发生变化
+2. 服务器禁用了密码认证
+3. 服务器禁用了键盘交互认证
+4. 主机密钥信任被禁用
+
+### 用户名测试结果
+```bash
+# 测试用户名: claw → Permission denied
+# 测试用户名: admin → Permission denied
+# 测试用户名: root → Permission denied
+# 测试用户名: fnos → Permission denied
+# 测试用户名: fnnas → Permission denied
+# 测试用户名: user → Permission denied
+```
 
 ### 解决方案
 **在NAS上修改SSH配置**：
