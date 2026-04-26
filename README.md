@@ -12,6 +12,12 @@ This repository contains OpenClaw skills for sharing and collaboration.
 - **nas-management**: Manage FeiNiu NAS (飞牛NAS) via SSH, including system monitoring, backup, and configuration.
 - **obsidian**: Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.
 - **openclaw-docs**: Crawl and extract OpenClaw official documentation from docs.openclaw.ai, enabling quick reference lookup and documentation search.
+- **openclaw-docs-index**: Fetch OpenClaw docs index from docs.openclaw.ai
+- **openclaw-docs-search**: Search OpenClaw docs content
+- **openclaw-docs-storage**: Manage docs cache and local files
+- **openclaw-docs-structure**: Generate docs structure tree
+- **openclaw-docs-update**: Update docs index and cache
+- **openclaw-docs-view**: View docs pages with clean formatting
 - **openclaw-tavily-search**: "Web search via Tavily API (alternative to Brave). Use when the user asks to search the web / look up sources / find links and Brave web_search is unavailable or undesired. Returns a small set of relevant results (title, url, snippet) and can optionally include short answer summaries."
 - **self-improving-agent**: "Captures learnings, errors, and corrections to enable continuous improvement. Use when: (1) A command or operation fails unexpectedly, (2) User corrects Claude ('No, that's wrong...', 'Actually...'), (3) User requests a capability that doesn't exist, (4) An external API or tool fails, (5) Claude realizes its knowledge is outdated or incorrect, (6) A better approach is discovered for a recurring task. Also review learnings before major tasks."
 - **self-protection**: Self-protection system for OpenClaw agent to prevent frequent crashes, implement load balancing, hourly heartbeat self-check, and automatic recovery.
@@ -23,8 +29,8 @@ This repository contains OpenClaw skills for sharing and collaboration.
 - **weather**: Get current weather and forecasts (no API key required).
 
 ## Last Update
-Last sync: 2026-04-26 18:00:01
-Changed skills: self-protection
+Last sync: 2026-04-27 02:20:00
+Changed skills: openclaw-docs-index openclaw-docs-search openclaw-docs-storage openclaw-docs-structure openclaw-docs-update openclaw-docs-view
 
 ## Automatic Sync
 This repository is automatically synchronized with OpenClaw workspace.
