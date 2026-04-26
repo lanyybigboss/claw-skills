@@ -23,8 +23,8 @@ This repository contains OpenClaw skills for sharing and collaboration.
 - **weather**: Get current weather and forecasts (no API key required).
 
 ## Last Update
-Last sync: 2026-04-26 06:02:15
-Changed skills: nas-management
+Last sync: 2026-04-26 12:00:01
+Changed skills: self-protection
 
 ## Automatic Sync
 This repository is automatically synchronized with OpenClaw workspace.
