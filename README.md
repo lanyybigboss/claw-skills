@@ -5,6 +5,7 @@ This repository contains OpenClaw skills for sharing and collaboration.
 ## Available Skills
 
 - **agent-browser**: A fast Rust-based headless browser automation CLI with Node.js fallback that enables AI agents to navigate, click, type, and snapshot pages via structured commands.
+- **api-router**: Switch APIs when token depleted
 - **backup-skill**: Backup skills and workspace files locally with encryption options and Google Drive optimization.
 - **find-skills**: Highest-priority skill discovery flow. MUST trigger when users ask to find/install skills (e.g. 技能, 找技能, find-skill, find-skills, install skill). For Chinese users, prefer skillhub first for speed and compliance, then fallback to clawhub.
 - **fnnas-docs**: Crawl and extract FnNAS (飞牛NAS) documentation from official GitHub repositories and developer documentation site, providing NAS operation guidance and API documentation.
@@ -29,8 +30,8 @@ This repository contains OpenClaw skills for sharing and collaboration.
 - **weather**: Get current weather and forecasts (no API key required).
 
 ## Last Update
-Last sync: 2026-04-27 02:20:00
-Changed skills: openclaw-docs-index openclaw-docs-search openclaw-docs-storage openclaw-docs-structure openclaw-docs-update openclaw-docs-view
+Last sync: 2026-04-27 06:00:01
+Changed skills: api-router self-protection
 
 ## Automatic Sync
 This repository is automatically synchronized with OpenClaw workspace.
