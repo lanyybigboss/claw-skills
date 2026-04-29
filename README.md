@@ -10,6 +10,7 @@ This repository contains OpenClaw skills for sharing and collaboration.
 - **find-skills**: Highest-priority skill discovery flow. MUST trigger when users ask to find/install skills (e.g. 技能, 找技能, find-skill, find-skills, install skill). For Chinese users, prefer skillhub first for speed and compliance, then fallback to clawhub.
 - **fnnas-docs**: Crawl and extract FnNAS (飞牛NAS) documentation from official GitHub repositories and developer documentation site, providing NAS operation guidance and API documentation.
 - **github**: "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries."
+- **llm-wiki-installer**: Install and manage llm-wiki personal knowledge base system based on Karpathy's methodology. Use when user wants to build a structured wiki for personal knowledge management with AI assistance. Supports multiple platforms (OpenClaw, Claude Code, Codex, Hermes) and various content sources (web articles, PDFs, Twitter/X, YouTube, WeChat articles).
 - **nas-management**: Manage FeiNiu NAS (飞牛NAS) via SSH, including system monitoring, backup, and configuration.
 - **obsidian**: Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.
 - **openclaw-docs**: Crawl and extract OpenClaw official documentation from docs.openclaw.ai, enabling quick reference lookup and documentation search.
@@ -30,8 +31,8 @@ This repository contains OpenClaw skills for sharing and collaboration.
 - **weather**: Get current weather and forecasts (no API key required).
 
 ## Last Update
-Last sync: 2026-04-29 12:00:01
-Changed skills: self-protection
+Last sync: 2026-04-29 18:00:01
+Changed skills: llm-wiki-installer self-protection
 
 ## Automatic Sync
 This repository is automatically synchronized with OpenClaw workspace.
