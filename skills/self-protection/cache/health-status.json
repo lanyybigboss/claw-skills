@@ -1,9 +1,9 @@
 {
-    "timestamp": "Thu Apr 30 05:56:44 AM CST 2026",
-    "cpu_usage": "0.0",
-    "memory_usage": "50.6656",
+    "timestamp": "Thu Apr 30 11:56:52 AM CST 2026",
+    "cpu_usage": "4.8",
+    "memory_usage": "52.0938",
     "disk_usage": "63",
-    "system_load": "0.41,",
+    "system_load": "0.29,",
     "process_count": "149",
     "openclaw_status": "4",
     "thresholds": {
