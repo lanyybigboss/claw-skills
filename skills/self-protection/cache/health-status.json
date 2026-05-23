@@ -1,10 +1,10 @@
 {
-    "timestamp": "Sat May 23 11:57:35 AM CST 2026",
-    "cpu_usage": "4.8",
-    "memory_usage": "61.3376",
+    "timestamp": "Sat May 23 05:26:48 PM CST 2026",
+    "cpu_usage": "5.0",
+    "memory_usage": "67.1164",
     "disk_usage": "64",
-    "system_load": "0.00,",
-    "process_count": "135",
+    "system_load": "0.32,",
+    "process_count": "134",
     "openclaw_status": "4",
     "thresholds": {
         "cpu_threshold": "80",
